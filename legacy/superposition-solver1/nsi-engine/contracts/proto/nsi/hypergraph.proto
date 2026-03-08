@@ -1,0 +1,4 @@
+// File: hypergraph.proto
+// TODO: define gRPC services and messages for hypergraph constructs.
+// Placeholder as part of the migration scaffolding.
+// Reference: migration blueprint; canonical HIF currently lives at repository docs/hif.md.

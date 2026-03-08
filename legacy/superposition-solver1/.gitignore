@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env/
+.ipynb_checkpoints/
+
+# Rust
+/target/
+/Cargo.lock
+
+# Build artifacts
+*.so
+*.dylib
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Notebooks/data/outputs
+outputs/
+data/
+!data/.gitkeep
+!outputs/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+.DS_Store

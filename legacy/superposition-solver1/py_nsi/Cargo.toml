@@ -1,0 +1,17 @@
+[package]
+name = "py_nsi"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Python bindings for nsi_core via pyo3."
+
+[lib]
+name = "py_nsi"
+crate-type = ["cdylib"]
+
+[dependencies]
+anyhow = "1.0"
+pyo3 = { version = "0.22", features = ["extension-module"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_yaml = "0.9"
+nsi_core = { path = "../nsi_core" }

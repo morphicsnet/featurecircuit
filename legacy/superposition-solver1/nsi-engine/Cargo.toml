@@ -1,0 +1,3 @@
+# Placeholder manifest for the NSI Engine repository skeleton.
+# This crate is not intended to build yet. Do not add to the workspace until later steps.
+# TODO: replace with real Cargo workspace/manifest in a later migration step.
