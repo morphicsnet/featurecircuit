@@ -35,6 +35,12 @@ Release blocker check (git state, changelog section, origin remote, artifacts):
 scripts/release_blockers.sh --version 0.1.0
 ```
 
+If `origin` is missing, configure it:
+
+```bash
+scripts/release_set_origin.sh <git-url>
+```
+
 Outputs:
 - Test and build logs in terminal
 - Optional built artifacts under `dist/`

@@ -95,3 +95,9 @@ Check release blockers before tagging:
 ```bash
 scripts/release_blockers.sh --version 0.1.0
 ```
+
+Set publish remote if missing:
+
+```bash
+scripts/release_set_origin.sh <git-url>
+```

@@ -15,6 +15,7 @@ def test_release_support_files_exist() -> None:
         repo_root / "scripts" / "release_verify_artifacts.sh",
         repo_root / "scripts" / "release_blockers.sh",
         repo_root / "scripts" / "release_tag.sh",
+        repo_root / "scripts" / "release_set_origin.sh",
     ]
     missing = [str(p) for p in expected if not p.exists()]
     assert not missing, "missing release files: " + ", ".join(missing)
@@ -27,6 +28,7 @@ def test_release_scripts_are_executable() -> None:
         repo_root / "scripts" / "release_verify_artifacts.sh",
         repo_root / "scripts" / "release_blockers.sh",
         repo_root / "scripts" / "release_tag.sh",
+        repo_root / "scripts" / "release_set_origin.sh",
     ]
     non_exec = [str(p) for p in scripts if not os.access(p, os.X_OK)]
     assert not non_exec, "release scripts must be executable: " + ", ".join(non_exec)

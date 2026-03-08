@@ -72,6 +72,9 @@ if (( ${#blockers[@]} > 0 )); then
   for b in "${blockers[@]}"; do
     echo "  - ${b}"
   done
+  if printf '%s\n' "${blockers[@]}" | grep -q "origin"; then
+    echo "fix: configure publish remote, e.g. git remote add origin <git-url>"
+  fi
   exit 1
 fi
 
