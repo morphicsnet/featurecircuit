@@ -21,7 +21,9 @@
   - [ ] `scripts/release_blockers.sh --version 0.1.0`
 - [ ] Ensure publish remote exists:
   - [ ] `scripts/release_set_origin.sh <git-url>`
-- [ ] Create and push tag:
+- [x] Create local release tag:
+  - [x] `scripts/release_tag.sh --version 0.1.0`
+- [ ] Push release tag:
   - [ ] `scripts/release_tag.sh --version 0.1.0 --push`
 - [ ] Verify `.github/workflows/release.yml` run passes.
 - [ ] Attach artifacts/release notes.
