@@ -1,0 +1,24 @@
+{
+  "accuracy": 0.5,
+  "active_threshold": 0.5,
+  "concepts": [
+    "river_bank",
+    "finance_bank"
+  ],
+  "ensemble_seeds": [
+    11,
+    23,
+    37
+  ],
+  "eps": 0.05,
+  "feature_dim": 1024,
+  "input_dim": 2,
+  "intersect_threshold": 0.1,
+  "median_poly": 2.0,
+  "monosemantic_rate": 0.0,
+  "num_concepts": 2,
+  "num_features": 1024,
+  "p90_poly": 2.0,
+  "representation": "ensemble_intersection",
+  "top_k": 16
+}

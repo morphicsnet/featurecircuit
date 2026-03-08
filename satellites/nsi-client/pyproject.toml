@@ -1,0 +1,4 @@
+[project]
+name = "nsi-client-skeleton"
+version = "0.0.0"
+description = "Placeholder Python client skeleton for NSI; functionality will be added in later steps."

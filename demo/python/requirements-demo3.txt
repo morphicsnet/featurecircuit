@@ -1,0 +1,11 @@
+# Demo 3 Python dependencies (install via pip).
+# IMPORTANT: Build the local Rust-backed py_nsi wheel with maturin before running:
+#   maturin develop --release -m core/py_nsi/Cargo.toml
+torch>=2.1
+transformers>=4.40
+numpy
+matplotlib
+pyyaml
+tqdm
+scikit-learn
+jsonschema

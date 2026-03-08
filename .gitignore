@@ -1,0 +1,14 @@
+.venv/
+.tmp/
+__pycache__/
+*.pyc
+*.so
+.DS_Store
+target/
+runs/
+demo/runs/
+demo/.tmp_smoke/
+demo/.tmp_release_smoke/
+dist/
+.pytest_cache/
+.mypy_cache/

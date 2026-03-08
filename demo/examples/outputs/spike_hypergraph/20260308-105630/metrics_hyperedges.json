@@ -1,0 +1,28 @@
+{
+  "accuracy": 0.9375,
+  "concepts": [
+    "river_bank",
+    "finance_bank"
+  ],
+  "edge_size_median": 3.0,
+  "edge_size_p90": 3.0,
+  "eps": 0.05,
+  "gse_window": 0.05,
+  "median_poly": 1.0,
+  "monosemantic_rate": 0.6262057877813505,
+  "num_concepts": 2,
+  "num_edges": 1244,
+  "num_features": 1244,
+  "num_samples": 800,
+  "p90_poly": 2.0,
+  "representation": "hyperedges_spike_temporal",
+  "spike": {
+    "delta_t": 1.0,
+    "min_sigmoid": 0.01,
+    "t_start": 0.0
+  },
+  "thresholds": {
+    "active_threshold_hyperedge": 0.5,
+    "eps": 0.05
+  }
+}

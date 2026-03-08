@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hif_legacy_demo.v0.json",
+  "title": "LegacyDemoHIFv0",
+  "type": "object",
+  "required": ["network-type", "nodes", "edges", "incidences"],
+  "properties": {
+    "network-type": { "const": "hypergraph" },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "integer", "minimum": 0 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "key", "observation_count", "stii_weight"],
+        "properties": {
+          "id": { "type": "integer", "minimum": 0 },
+          "key": { "type": "array", "items": { "type": "integer", "minimum": 0 }, "minItems": 2 },
+          "observation_count": { "type": "integer", "minimum": 0 },
+          "stii_weight": { "type": "number" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "incidences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["edge", "nodes"],
+        "properties": {
+          "edge": { "type": "integer", "minimum": 0 },
+          "nodes": { "type": "array", "items": { "type": "integer", "minimum": 0 }, "minItems": 2 }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

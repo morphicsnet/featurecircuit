@@ -1,0 +1,4 @@
+// File: dataset.proto
+// TODO: define gRPC services and messages for dataset ingestion and access.
+// Placeholder as part of the migration scaffolding.
+// Reference: migration blueprint; canonical HIF currently lives at repository docs/hif.md.

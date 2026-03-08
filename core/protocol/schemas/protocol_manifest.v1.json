@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "protocol_manifest.v1.json",
+  "title": "ProtocolManifest",
+  "type": "object",
+  "required": [
+    "schema_name",
+    "schema_version",
+    "protocol_version",
+    "run_id",
+    "artifact_schema_versions",
+    "package_versions",
+    "compat_mode_enabled",
+    "hif_export_mode",
+    "run_config_checksum"
+  ],
+  "properties": {
+    "schema_name": { "const": "protocol_manifest.v1" },
+    "schema_version": { "type": "integer", "const": 1 },
+    "protocol_version": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "artifact_schema_versions": { "type": "object", "minProperties": 1 },
+    "package_versions": { "type": "object", "minProperties": 1 },
+    "compat_mode_enabled": { "type": "boolean" },
+    "hif_export_mode": { "type": "string", "enum": ["canonical", "legacy_demo", "both", "none"] },
+    "run_config_checksum": { "type": "string", "minLength": 1 },
+    "metadata": { "type": "object" }
+  },
+  "additionalProperties": false
+}

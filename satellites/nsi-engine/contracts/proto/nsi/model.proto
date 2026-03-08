@@ -1,0 +1,4 @@
+// File: model.proto
+// TODO: define gRPC services and messages for model lifecycle and inference.
+// Placeholder as part of the migration scaffolding.
+// Reference: migration blueprint; canonical HIF currently lives at repository docs/hif.md.

@@ -1,0 +1,44 @@
+{
+  "artifacts": {
+    "baseline_poly_hist": "outputs/investor/20260308-110150/plots/baseline_poly_hist.png",
+    "ensemble_intersection_poly_hist": "outputs/investor/20260308-110150/plots/ensemble_intersection_poly_hist.png",
+    "ensemble_single_poly_hist": "outputs/investor/20260308-110150/plots/ensemble_single_poly_hist.png",
+    "hypergraph_poly_hist_src": "/Volumes/128/superposition-demo/outputs/spike_hypergraph/20260308-105630/poly_hist_hyperedges.png",
+    "stii_topk_bar": "outputs/investor/20260308-110150/plots/stii_topk_bar.png"
+  },
+  "baseline": {
+    "median_poly": 2.0,
+    "monosemantic_rate": 0.013671875,
+    "num_features": 1024,
+    "p90_poly": 2.0
+  },
+  "causal": {
+    "acdc_base_acc": 0.6,
+    "acdc_final_acc": 0.775,
+    "acdc_kept_edges": 50,
+    "fair_any_biased_in_minimal": false,
+    "fair_biased_nodes_in_minimal_count": 0,
+    "stii_computed_count": 1613
+  },
+  "ensemble": {
+    "accuracy_intersection": 0.5,
+    "accuracy_single": 0.7,
+    "median_poly_intersection": 2.0,
+    "median_poly_single": 2.0,
+    "monosemantic_rate_intersection": 0.0,
+    "monosemantic_rate_single": 0.0126953125
+  },
+  "hypergraph": {
+    "accuracy": 0.9375,
+    "median_poly": 1.0,
+    "monosemantic_rate": 0.6262057877813505,
+    "num_concepts": 2,
+    "num_edges": 1244
+  },
+  "selection": {
+    "baseline": "/Volumes/128/superposition-demo/outputs/baseline/20260308-105608",
+    "causal": "/Volumes/128/superposition-demo/outputs/causal/20260308-110147",
+    "ensemble": "/Volumes/128/superposition-demo/outputs/ensemble/20260308-105621",
+    "spike_hypergraph": "/Volumes/128/superposition-demo/outputs/spike_hypergraph/20260308-105630"
+  }
+}

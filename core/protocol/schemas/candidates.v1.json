@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "candidates.v1.json",
+  "title": "CandidateSetArtifact",
+  "type": "object",
+  "required": ["schema_name", "schema_version", "run_id", "candidates"],
+  "properties": {
+    "schema_name": { "const": "candidates.v1" },
+    "schema_version": { "type": "integer", "const": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "candidate_id",
+          "candidate_type",
+          "members",
+          "arity",
+          "support_count",
+          "stability_score",
+          "synergy_score",
+          "formation_rule"
+        ],
+        "properties": {
+          "candidate_id": { "type": "string", "minLength": 1 },
+          "candidate_type": { "type": "string", "minLength": 1 },
+          "members": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "arity": { "type": "integer", "minimum": 1 },
+          "support_count": { "type": "integer", "minimum": 0 },
+          "stability_score": { "type": "number" },
+          "synergy_score": { "type": "number" },
+          "formation_rule": { "type": "string" },
+          "metadata": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

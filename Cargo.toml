@@ -1,0 +1,3 @@
+[workspace]
+members = ["core/nsi_core", "core/py_nsi"]
+resolver = "2"

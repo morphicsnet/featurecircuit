@@ -1,0 +1,150 @@
+{
+  "any_biased_node_in_minimal": false,
+  "biased_nodes_in_minimal_count": 0,
+  "biased_nodes_in_minimal_ratio": 0.0,
+  "examples": [
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 171,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 227,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 286,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 328,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 451,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 505,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 601,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 740,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 1020,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 4294967358,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 4294967441,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 4294967449,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 4294967905,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 4294967975,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 4294968154,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 4294968252,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 8589934737,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 8589934907,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 8589934966,
+      "p_female": 0.0,
+      "p_male": 1.0
+    },
+    {
+      "example_edges": [],
+      "in_minimal": false,
+      "node_id": 8589935258,
+      "p_female": 0.0,
+      "p_male": 1.0
+    }
+  ],
+  "num_biased_nodes": 106,
+  "num_minimal_edges": 50,
+  "threshold": 0.6
+}

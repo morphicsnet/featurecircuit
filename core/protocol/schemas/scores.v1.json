@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scores.v1.json",
+  "title": "ScoreBundleArtifact",
+  "type": "object",
+  "required": ["schema_name", "schema_version", "run_id", "scores"],
+  "properties": {
+    "schema_name": { "const": "scores.v1" },
+    "schema_version": { "type": "integer", "const": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "scores": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "candidate_id",
+          "coactivation_score",
+          "stability_score",
+          "synergy_score",
+          "calibration_score",
+          "causal_score",
+          "final_rank_score"
+        ],
+        "properties": {
+          "candidate_id": { "type": "string", "minLength": 1 },
+          "coactivation_score": { "type": "number" },
+          "stability_score": { "type": "number" },
+          "synergy_score": { "type": "number" },
+          "calibration_score": { "type": "number" },
+          "causal_score": { "type": "number" },
+          "final_rank_score": { "type": "number" },
+          "extra_scores": {
+            "type": "object",
+            "additionalProperties": { "type": "number" }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

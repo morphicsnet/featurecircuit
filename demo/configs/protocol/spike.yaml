@@ -1,0 +1,5 @@
+min_val: 0.0
+max_val: 1.0
+t_min: 0.0
+t_max: 1.0
+epsilon: 1e-6

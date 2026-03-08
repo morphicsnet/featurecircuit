@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "relations.v1.json",
+  "title": "RelationArtifact",
+  "type": "object",
+  "required": [
+    "schema_name",
+    "schema_version",
+    "run_id",
+    "relation_builder_type",
+    "relation_builder_version",
+    "feature_space_id",
+    "relations"
+  ],
+  "properties": {
+    "schema_name": { "const": "relations.v1" },
+    "schema_version": { "type": "integer", "const": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "relation_builder_type": { "type": "string", "minLength": 1 },
+    "relation_builder_version": { "type": "string", "minLength": 1 },
+    "feature_space_id": { "type": "string", "minLength": 1 },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["relation_id", "relation_type", "members", "arity", "weight"],
+        "properties": {
+          "relation_id": { "type": "string", "minLength": 1 },
+          "relation_type": { "type": "string", "minLength": 1 },
+          "members": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "arity": { "type": "integer", "minimum": 1 },
+          "directionality": { "type": "string", "enum": ["undirected", "directed"] },
+          "threshold": { "type": "number" },
+          "construction_rule": { "type": "string" },
+          "weight": { "type": "number" },
+          "metadata": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

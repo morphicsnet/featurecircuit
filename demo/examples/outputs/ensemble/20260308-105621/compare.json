@@ -1,0 +1,19 @@
+{
+  "intersection": {
+    "accuracy": 0.5,
+    "active_threshold": 0.5,
+    "eps": 0.05,
+    "intersect_threshold": 0.1,
+    "median_poly": 2.0,
+    "monosemantic_rate": 0.0,
+    "p90_poly": 2.0
+  },
+  "single": {
+    "accuracy": 0.7,
+    "active_threshold": 0.1,
+    "eps": 0.05,
+    "median_poly": 2.0,
+    "monosemantic_rate": 0.0126953125,
+    "p90_poly": 2.0
+  }
+}

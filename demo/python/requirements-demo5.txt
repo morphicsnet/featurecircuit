@@ -1,0 +1,13 @@
+# Demo 5 Investor Dashboard requirements (no install performed here)
+# Note: py_nsi is ONLY needed if you plan to regenerate upstream demo artifacts.
+# The dashboard/notebook read JSON/PNG artifacts from runs/ and do not require py_nsi.
+
+streamlit>=1.37
+pandas>=2.0
+numpy
+matplotlib
+plotly
+pyyaml
+networkx
+scikit-learn
+jsonschema

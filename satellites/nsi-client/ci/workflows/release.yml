@@ -1,0 +1,11 @@
+name: Release (placeholder)
+on:
+  push:
+    tags:
+      - "v*"
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: No-op
+        run: echo "TODO: add release automation"
