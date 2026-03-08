@@ -3,19 +3,24 @@ set -euo pipefail
 
 usage() {
   cat <<'EOF'
-Usage: scripts/release_blockers.sh [--version x.y.z]
+Usage: scripts/release_blockers.sh [--version x.y.z] [--allow-missing-origin]
 
 Checks local release blockers and exits non-zero if any blocker exists.
 EOF
 }
 
 VERSION="0.1.0"
+ALLOW_MISSING_ORIGIN=0
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --version)
       VERSION="${2:-}"
       shift 2
+      ;;
+    --allow-missing-origin)
+      ALLOW_MISSING_ORIGIN=1
+      shift
       ;;
     -h|--help)
       usage
@@ -42,9 +47,13 @@ else
   fi
 
   origin_url="$(git remote get-url origin 2>/dev/null || true)"
-  if [[ -z "$origin_url" ]]; then
-    blockers+=("git remote 'origin' is not configured")
-  elif [[ "$origin_url" != http* && "$origin_url" != git@* ]]; then
+  if [[ "$ALLOW_MISSING_ORIGIN" -eq 0 ]]; then
+    if [[ -z "$origin_url" ]]; then
+      blockers+=("git remote 'origin' is not configured")
+    elif [[ "$origin_url" != http* && "$origin_url" != git@* ]]; then
+      blockers+=("git remote 'origin' is local/non-publishable: ${origin_url}")
+    fi
+  elif [[ -n "$origin_url" && "$origin_url" != http* && "$origin_url" != git@* ]]; then
     blockers+=("git remote 'origin' is local/non-publishable: ${origin_url}")
   fi
 fi

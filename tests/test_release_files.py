@@ -11,6 +11,7 @@ def test_release_support_files_exist() -> None:
         repo_root / "CHANGELOG.md",
         repo_root / "RELEASE_CHECKLIST.md",
         repo_root / "docs" / "release.md",
+        repo_root / "docs" / "releases" / "v0.1.0.md",
         repo_root / "scripts" / "release_preflight.sh",
         repo_root / "scripts" / "release_verify_artifacts.sh",
         repo_root / "scripts" / "release_blockers.sh",

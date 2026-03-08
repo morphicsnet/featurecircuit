@@ -93,3 +93,4 @@ scripts/release_verify_artifacts.sh dist/<wheel-file>.whl
 
 ## Release Comms
 - Announcement template: `docs/release_announcement_template.md`
+- Release notes: `docs/releases/v0.1.0.md`

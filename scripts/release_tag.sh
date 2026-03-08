@@ -37,7 +37,11 @@ done
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
-scripts/release_blockers.sh --version "$VERSION"
+if [[ "$PUSH" -eq 1 ]]; then
+  scripts/release_blockers.sh --version "$VERSION"
+else
+  scripts/release_blockers.sh --version "$VERSION" --allow-missing-origin
+fi
 
 TAG="v${VERSION}"
 if git rev-parse "${TAG}" >/dev/null 2>&1; then
