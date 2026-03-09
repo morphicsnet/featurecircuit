@@ -17,6 +17,7 @@
     "run_id": { "type": "string", "minLength": 1 },
     "structure_builder_type": { "type": "string", "minLength": 1 },
     "structure_builder_version": { "type": "string", "minLength": 1 },
+    "metadata": { "type": "object" },
     "structures": {
       "type": "array",
       "items": {

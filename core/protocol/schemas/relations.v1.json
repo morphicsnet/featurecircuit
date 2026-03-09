@@ -19,6 +19,7 @@
     "relation_builder_type": { "type": "string", "minLength": 1 },
     "relation_builder_version": { "type": "string", "minLength": 1 },
     "feature_space_id": { "type": "string", "minLength": 1 },
+    "metadata": { "type": "object" },
     "relations": {
       "type": "array",
       "items": {

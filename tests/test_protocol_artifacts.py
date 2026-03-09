@@ -3,7 +3,9 @@ from __future__ import annotations
 from pathlib import Path
 
 from featurecircuit_protocol.artifacts import (
+    ActivationBatch,
     CandidateSetArtifact,
+    CircuitSnapshotArtifact,
     FeatureEvent,
     FeatureEventStream,
     FeatureSpaceDescriptor,
@@ -17,6 +19,23 @@ from featurecircuit_protocol.validation import validate_json_file, validate_json
 
 
 def test_schema_validation_roundtrip(tmp_path: Path) -> None:
+    ab = ActivationBatch(
+        activation_batch_id="ab1",
+        run_id="run-a",
+        training_run_id="train-a",
+        checkpoint_id="ckpt-1",
+        batch_id="b-0",
+        model_id="tiny-gpt2",
+        model_revision="main",
+        tokenizer_id="gpt2",
+        layer_targets=[0],
+        activation_kind="residual",
+        shape_summary={"batch": 1, "hidden": 4},
+        dtype="float32",
+        device="cpu",
+    ).to_dict()
+    validate_payload(ab, "activation_batch.v1.json")
+
     fs = FeatureSpaceDescriptor(
         feature_space_id="fs:demo",
         feature_space_type="sae",
@@ -109,6 +128,20 @@ def test_schema_validation_roundtrip(tmp_path: Path) -> None:
     ).to_dict()
     validate_payload(candidates, "candidates.v1.json")
 
+    snapshot = CircuitSnapshotArtifact(
+        snapshot_id="snap_1",
+        run_id="run-a",
+        training_run_id="train-a",
+        checkpoint_id="ckpt-1",
+        feature_space_id="fs:demo",
+        relation_artifact_id="rel-a",
+        structure_artifact_id="struct-a",
+        candidate_set_id="cand-a",
+        candidate_ids=["c1"],
+        summary={"note": "toy"},
+    ).to_dict()
+    validate_payload(snapshot, "circuit_snapshot.v1.json")
+
     scores = ScoreBundleArtifact(
         run_id="run-a",
         scores=[
@@ -133,5 +166,7 @@ def test_schema_validation_roundtrip(tmp_path: Path) -> None:
         compat_mode_enabled=True,
         hif_export_mode="legacy_demo",
         run_config_checksum="abc",
+        export_profiles=["hypercircuit_handoff.v1", "hif.v0"],
+        lineage={"run_id": "run-a", "training_run_id": "train-a", "checkpoint_id": "ckpt-1"},
     ).to_dict()
     validate_payload(manifest, "protocol_manifest.v1.json")

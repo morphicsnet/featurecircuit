@@ -12,7 +12,9 @@
     "package_versions",
     "compat_mode_enabled",
     "hif_export_mode",
-    "run_config_checksum"
+    "run_config_checksum",
+    "export_profiles",
+    "lineage"
   ],
   "properties": {
     "schema_name": { "const": "protocol_manifest.v1" },
@@ -24,6 +26,12 @@
     "compat_mode_enabled": { "type": "boolean" },
     "hif_export_mode": { "type": "string", "enum": ["canonical", "legacy_demo", "both", "none"] },
     "run_config_checksum": { "type": "string", "minLength": 1 },
+    "model_info": { "type": "object" },
+    "feature_space_descriptors": { "type": "array", "items": { "type": "string" } },
+    "relation_builders": { "type": "array", "items": { "type": "string" } },
+    "structure_builders": { "type": "array", "items": { "type": "string" } },
+    "export_profiles": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "lineage": { "type": "object", "minProperties": 1 },
     "metadata": { "type": "object" }
   },
   "additionalProperties": false

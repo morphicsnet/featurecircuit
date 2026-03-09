@@ -8,6 +8,7 @@
     "schema_name": { "const": "scores.v1" },
     "schema_version": { "type": "integer", "const": 1 },
     "run_id": { "type": "string", "minLength": 1 },
+    "metadata": { "type": "object" },
     "scores": {
       "type": "array",
       "items": {

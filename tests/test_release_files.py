@@ -17,6 +17,8 @@ def test_release_support_files_exist() -> None:
         repo_root / "scripts" / "release_blockers.sh",
         repo_root / "scripts" / "release_tag.sh",
         repo_root / "scripts" / "release_set_origin.sh",
+        repo_root / "tools" / "schema_validate" / "main.py",
+        repo_root / "tools" / "artifact_diff" / "main.py",
     ]
     missing = [str(p) for p in expected if not p.exists()]
     assert not missing, "missing release files: " + ", ".join(missing)

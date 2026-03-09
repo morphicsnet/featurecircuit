@@ -1,38 +1,61 @@
 """FeatureCircuit Protocol reference artifacts and helpers."""
 
 from .artifacts import (
+    ActivationBatch,
     FeatureSpaceDescriptor,
     FeatureEvent,
     FeatureEventStream,
     RelationArtifact,
     StructureArtifact,
     CandidateSetArtifact,
+    CircuitSnapshotArtifact,
     ScoreBundleArtifact,
     ProtocolManifest,
 )
 from .ids import (
     feature_id,
     relation_id,
+    structure_id,
     candidate_id,
+    snapshot_id,
     member_key,
     feature_key,
 )
 from .io import write_json, write_jsonl, read_json
 from .validation import validate_payload, validate_json_file, validate_jsonl_file
 from .compatibility import CompatibilityError, check_stage_compatibility, assert_stage_compatible
+from .interfaces import (
+    FeatureCircuitError,
+    ConfigError,
+    ValidationError,
+    ModelLoadError,
+    AdapterError,
+    BuilderError,
+    ExportError,
+    ModelAdapter,
+    FeatureAdapter,
+    RelationBuilder,
+    StructureBuilder,
+    ScoreComputer,
+    Exporter,
+)
 
 __all__ = [
+    "ActivationBatch",
     "FeatureSpaceDescriptor",
     "FeatureEvent",
     "FeatureEventStream",
     "RelationArtifact",
     "StructureArtifact",
     "CandidateSetArtifact",
+    "CircuitSnapshotArtifact",
     "ScoreBundleArtifact",
     "ProtocolManifest",
     "feature_id",
     "relation_id",
+    "structure_id",
     "candidate_id",
+    "snapshot_id",
     "member_key",
     "feature_key",
     "write_json",
@@ -44,4 +67,17 @@ __all__ = [
     "CompatibilityError",
     "check_stage_compatibility",
     "assert_stage_compatible",
+    "FeatureCircuitError",
+    "ConfigError",
+    "ValidationError",
+    "ModelLoadError",
+    "AdapterError",
+    "BuilderError",
+    "ExportError",
+    "ModelAdapter",
+    "FeatureAdapter",
+    "RelationBuilder",
+    "StructureBuilder",
+    "ScoreComputer",
+    "Exporter",
 ]

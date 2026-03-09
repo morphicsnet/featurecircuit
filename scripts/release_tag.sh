@@ -11,6 +11,7 @@ EOF
 
 VERSION="0.1.0"
 PUSH=0
+RETAG_LOCAL=0
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -20,6 +21,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --push)
       PUSH=1
+      shift
+      ;;
+    --retag-local)
+      RETAG_LOCAL=1
       shift
       ;;
     -h|--help)
@@ -45,8 +50,14 @@ fi
 
 TAG="v${VERSION}"
 if git rev-parse "${TAG}" >/dev/null 2>&1; then
-  echo "tag already exists: ${TAG}" >&2
-  exit 1
+  if [[ "$RETAG_LOCAL" -eq 1 ]]; then
+    git tag -d "${TAG}"
+    echo "deleted existing local tag ${TAG}"
+  else
+    echo "tag already exists: ${TAG}" >&2
+    echo "use --retag-local to replace local provisional tag" >&2
+    exit 1
+  fi
 fi
 
 git tag -a "${TAG}" -m "Release ${TAG}"

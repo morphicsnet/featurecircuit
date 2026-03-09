@@ -49,6 +49,70 @@ maturin develop --release -m core/py_nsi/Cargo.toml
 cargo test --workspace
 PYTHONPATH="core/protocol/python:demo" pytest -q tests
 
+# Tooling smoke checks for schema validation and artifact diff.
+tmp_fs_json=".tmp/release_preflight_feature_space.v1.json"
+mkdir -p .tmp
+cat > "${tmp_fs_json}" <<'JSON'
+{
+  "schema_name": "feature_space.v1",
+  "schema_version": 1,
+  "feature_space_id": "fs:preflight",
+  "feature_space_type": "sae",
+  "producer": "release_preflight",
+  "producer_version": "v1",
+  "model_id": "tiny",
+  "layer_map": {"0": "sae"},
+  "dim": 2,
+  "activation_rule": "topk",
+  "checksum": "preflight"
+}
+JSON
+python tools/schema_validate/main.py --path "${tmp_fs_json}" --schema feature_space.v1.json
+python tools/artifact_diff/main.py --left "${tmp_fs_json}" --right "${tmp_fs_json}"
+
+tmp_ab_json=".tmp/release_preflight_activation_batch.v1.json"
+cat > "${tmp_ab_json}" <<'JSON'
+{
+  "schema_name": "activation_batch.v1",
+  "schema_version": 1,
+  "activation_batch_id": "ab:preflight",
+  "run_id": "preflight",
+  "training_run_id": "preflight",
+  "checkpoint_id": "checkpoint-0",
+  "batch_id": "batch-0",
+  "model_id": "tiny",
+  "model_revision": "unknown",
+  "tokenizer_id": "tiny",
+  "layer_targets": [0],
+  "activation_kind": "residual",
+  "shape_summary": {"batch": 1, "hidden": 2},
+  "dtype": "float32",
+  "device": "cpu",
+  "metadata": {"runner": "release_preflight"}
+}
+JSON
+python tools/schema_validate/main.py --path "${tmp_ab_json}" --schema activation_batch.v1.json
+
+tmp_snap_json=".tmp/release_preflight_circuit_snapshot.v1.json"
+cat > "${tmp_snap_json}" <<'JSON'
+{
+  "schema_name": "circuit_snapshot.v1",
+  "schema_version": 1,
+  "snapshot_id": "snap:preflight",
+  "run_id": "preflight",
+  "training_run_id": "preflight",
+  "checkpoint_id": "checkpoint-0",
+  "feature_space_id": "fs:preflight",
+  "relation_artifact_id": "rel:preflight",
+  "structure_artifact_id": "struct:preflight",
+  "candidate_set_id": "cand:preflight",
+  "candidate_ids": ["c:1"],
+  "summary": {"runner": "release_preflight"},
+  "metadata": {"runner": "release_preflight"}
+}
+JSON
+python tools/schema_validate/main.py --path "${tmp_snap_json}" --schema circuit_snapshot.v1.json
+
 if [[ "$WITH_SMOKE" -eq 1 ]]; then
   pushd demo >/dev/null
   mkdir -p .tmp_release_smoke

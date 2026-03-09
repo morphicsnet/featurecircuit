@@ -73,15 +73,18 @@ def write_protocol_manifest(
     from featurecircuit_protocol.validation import validate_payload
 
     run_id = os.path.basename(os.path.abspath(run_dir))
+    runtime = _extract_runtime_metadata(config_payload)
     manifest = ProtocolManifest(
         protocol_version="featurecircuit-protocol.v1",
         run_id=run_id,
         artifact_schema_versions={
+            "activation_batch": "activation_batch.v1",
             "feature_space": "feature_space.v1",
             "feature_events": "feature_events.v1",
             "relations": "relations.v1",
             "structures": "structures.v1",
             "candidates": "candidates.v1",
+            "circuit_snapshot": "circuit_snapshot.v1",
             "scores": "scores.v1",
             "hif": "hif.v0",
             "hif_legacy_demo": "hif_legacy_demo.v0",
@@ -91,9 +94,27 @@ def write_protocol_manifest(
         compat_mode_enabled=bool(compat_mode_enabled),
         hif_export_mode=hif_export_mode,
         run_config_checksum=config_checksum(config_payload),
+        export_profiles=[
+            "hypercircuit_handoff.v1",
+            "hif.v0",
+            "hif_legacy_demo.v0",
+            "sidecar_bundle.v1",
+        ],
+        lineage={
+            "run_id": run_id,
+            "training_run_id": str((config_payload.get("training") or {}).get("training_run_id", run_id)),
+            "checkpoint_id": str((config_payload.get("training") or {}).get("checkpoint_id", "checkpoint-unknown")),
+        },
+        model_info={
+            "model_id": runtime.get("model_identifier", "unknown"),
+            "layer_selection": runtime.get("layer_selection"),
+        },
+        feature_space_descriptors=[],
+        relation_builders=[],
+        structure_builders=[],
         metadata={
             "runner": "demo",
-            **_extract_runtime_metadata(config_payload),
+            **runtime,
             **(runtime_metadata or {}),
         },
     ).to_dict()
@@ -112,6 +133,17 @@ def write_feature_events(run_dir: str, rows: Iterable[dict[str, Any]]) -> str:
     out = os.path.join(run_dir, "feature_events.v1.jsonl")
     write_jsonl(out, rows)
     validate_jsonl_file(out, "feature_events.v1.jsonl")
+    return out
+
+
+def write_activation_batch(run_dir: str, payload: dict[str, Any]) -> str:
+    _ensure_protocol_path()
+    from featurecircuit_protocol.io import write_json
+    from featurecircuit_protocol.validation import validate_payload
+
+    validate_payload(payload, "activation_batch.v1.json")
+    out = os.path.join(run_dir, "activation_batch.v1.json")
+    write_json(out, payload)
     return out
 
 
@@ -172,6 +204,17 @@ def write_candidates(run_dir: str, payload: dict[str, Any]) -> str:
 
     validate_payload(payload, "candidates.v1.json")
     out = os.path.join(run_dir, "candidates.v1.json")
+    write_json(out, payload)
+    return out
+
+
+def write_circuit_snapshot(run_dir: str, payload: dict[str, Any]) -> str:
+    _ensure_protocol_path()
+    from featurecircuit_protocol.io import write_json
+    from featurecircuit_protocol.validation import validate_payload
+
+    validate_payload(payload, "circuit_snapshot.v1.json")
+    out = os.path.join(run_dir, "circuit_snapshot.v1.json")
     write_json(out, payload)
     return out
 
@@ -240,4 +283,38 @@ def build_candidate_id(
         member_feature_ids=member_feature_ids,
         candidate_type=candidate_type,
         arity=arity,
+    )
+
+
+def build_structure_id(
+    structure_builder_type: str,
+    structure_builder_version: str,
+    members: list[str],
+    structure_type: str,
+) -> str:
+    _ensure_protocol_path()
+    from featurecircuit_protocol.ids import structure_id
+
+    return structure_id(
+        structure_builder_type=structure_builder_type,
+        structure_builder_version=structure_builder_version,
+        members=members,
+        structure_type=structure_type,
+    )
+
+
+def build_snapshot_id(
+    training_run_id: str,
+    checkpoint_id: str,
+    feature_space_id: str,
+    candidate_set_id: str,
+) -> str:
+    _ensure_protocol_path()
+    from featurecircuit_protocol.ids import snapshot_id
+
+    return snapshot_id(
+        training_run_id=training_run_id,
+        checkpoint_id=checkpoint_id,
+        feature_space_id=feature_space_id,
+        candidate_set_id=candidate_set_id,
     )

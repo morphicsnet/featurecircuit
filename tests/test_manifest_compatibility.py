@@ -12,13 +12,17 @@ def _manifest() -> dict:
         "protocol_version": "featurecircuit-protocol.v1",
         "run_id": "run-1",
         "artifact_schema_versions": {
+            "activation_batch": "activation_batch.v1",
             "feature_space": "feature_space.v1",
             "feature_events": "feature_events.v1",
             "relations": "relations.v1",
             "structures": "structures.v1",
             "candidates": "candidates.v1",
+            "circuit_snapshot": "circuit_snapshot.v1",
             "scores": "scores.v1",
         },
+        "export_profiles": ["hypercircuit_handoff.v1", "hif.v0"],
+        "lineage": {"run_id": "run-1"},
     }
 
 
@@ -75,4 +79,3 @@ def test_assert_stage_compatible_raises_on_failure() -> None:
             protocol_manifest=_manifest(),
             required_schema_versions={"feature_space": "feature_space.v2"},
         )
-

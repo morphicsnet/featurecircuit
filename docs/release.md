@@ -17,6 +17,8 @@ Run from repository root:
 scripts/release_preflight.sh
 ```
 
+Strict gate rule: do not start the next release lane until this release gate is green.
+
 Optional heavier gate with end-to-end smoke corridor and wheel/sdist build:
 
 ```bash
@@ -72,6 +74,17 @@ Scripted equivalent:
 ```bash
 scripts/release_tag.sh --version 0.1.0 --push
 ```
+
+If a local provisional tag already exists, retag from finalized release commit:
+
+```bash
+scripts/release_tag.sh --version 0.1.0 --retag-local --push
+```
+
+For strict 0.1 finalization, treat any prior local `v0.1.0` as provisional and retag only after:
+- `scripts/release_preflight.sh --with-smoke --build-artifacts`
+- `scripts/release_verify_artifacts.sh`
+- `scripts/release_blockers.sh --version 0.1.0` (without `--allow-missing-origin` for publish)
 
 ## Post-Tag Validation
 - Download wheel artifacts from workflow run.

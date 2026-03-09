@@ -52,7 +52,8 @@
     "split": { "type": "string" },
     "label": { "type": "string" },
     "capability_tag": { "type": "string" },
-    "safety_tag": { "type": "string" }
+    "safety_tag": { "type": "string" },
+    "metadata": { "type": "object" }
   },
   "additionalProperties": false
 }

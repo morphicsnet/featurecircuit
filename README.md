@@ -38,6 +38,7 @@ ActivationBatch
   -> RelationArtifact
   -> StructureArtifact
   -> CandidateSetArtifact
+  -> CircuitSnapshotArtifact
   -> ScoreBundleArtifact
   -> HIF Export / Report Artifact
 ```
@@ -70,6 +71,8 @@ ActivationBatch
 - Rust core and bindings tests: `cargo test --workspace`
 - Python tests: `pytest -q tests`
 - Contract/schema validation is part of Python tests.
+- Schema validation CLI: `python tools/schema_validate/main.py --path <artifact>`
+- Artifact diff CLI: `python tools/artifact_diff/main.py --left <a> --right <b>`
 
 ## Release
 Run preflight from repo root:

@@ -22,3 +22,6 @@ Implementation layer owns concrete Rust/Python logic, builders, and reproducibil
 
 ## Integration Boundary
 Downstream systems (Hypercircuit, Sidecar, other consumers) consume emitted artifacts (`feature_events`, `candidates`, `scores`) and do not import internal in-memory structures.
+
+## Canonical Artifact Chain
+`ActivationBatch` -> `FeatureSpaceDescriptor` -> `FeatureEventStream` -> `RelationArtifact` -> `StructureArtifact` -> `CandidateSetArtifact` -> `CircuitSnapshotArtifact` -> `ScoreBundleArtifact` -> exporter profiles.

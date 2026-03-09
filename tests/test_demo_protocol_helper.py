@@ -4,11 +4,15 @@ from pathlib import Path
 
 from featurecircuit_protocol.validation import validate_json_file
 from python.repro.protocol_manifest import (
+    build_snapshot_id,
+    build_structure_id,
     build_candidate_id,
     build_feature_key,
     build_member_key,
     build_relation_id,
+    write_activation_batch,
     write_candidates,
+    write_circuit_snapshot,
     write_feature_space,
     write_hif_exports,
     write_protocol_manifest,
@@ -47,6 +51,28 @@ def test_demo_protocol_writers(tmp_path: Path) -> None:
         },
     )
     validate_json_file(feature_space_path, "feature_space.v1.json")
+
+    activation_batch_path = write_activation_batch(
+        str(run_dir),
+        {
+            "schema_name": "activation_batch.v1",
+            "schema_version": 1,
+            "activation_batch_id": "ab1",
+            "run_id": "run-1",
+            "training_run_id": "train-1",
+            "checkpoint_id": "ckpt-1",
+            "batch_id": "batch-0",
+            "model_id": "tiny",
+            "model_revision": "main",
+            "tokenizer_id": "gpt2",
+            "layer_targets": [0],
+            "activation_kind": "residual",
+            "shape_summary": {"batch": 1, "hidden": 2},
+            "dtype": "float32",
+            "device": "cpu",
+        },
+    )
+    validate_json_file(activation_batch_path, "activation_batch.v1.json")
 
     relations_path = write_relations(
         str(run_dir),
@@ -134,6 +160,25 @@ def test_demo_protocol_writers(tmp_path: Path) -> None:
     )
     validate_json_file(candidates_path, "candidates.v1.json")
 
+    circuit_snapshot_path = write_circuit_snapshot(
+        str(run_dir),
+        {
+            "schema_name": "circuit_snapshot.v1",
+            "schema_version": 1,
+            "snapshot_id": "snap-1",
+            "run_id": "run-1",
+            "training_run_id": "train-1",
+            "checkpoint_id": "ckpt-1",
+            "feature_space_id": "fs:test",
+            "relation_artifact_id": "rel-1",
+            "structure_artifact_id": "struct-1",
+            "candidate_set_id": "cand-1",
+            "candidate_ids": ["c1"],
+            "summary": {"note": "unit"},
+        },
+    )
+    validate_json_file(circuit_snapshot_path, "circuit_snapshot.v1.json")
+
     scores_path = write_scores(
         str(run_dir),
         {
@@ -161,6 +206,8 @@ def test_demo_protocol_writers(tmp_path: Path) -> None:
     assert Path(structures_path).exists()
     assert Path(candidates_path).exists()
     assert Path(scores_path).exists()
+    assert Path(activation_batch_path).exists()
+    assert Path(circuit_snapshot_path).exists()
 
 
 def test_demo_protocol_id_helpers_are_deterministic() -> None:
@@ -205,3 +252,11 @@ def test_demo_protocol_id_helpers_are_deterministic() -> None:
         arity=2,
     )
     assert c1 == c2
+
+    s1 = build_structure_id("temporal_hypergraph", "v1", ["f1", "f2"], "hyperedge")
+    s2 = build_structure_id("temporal_hypergraph", "v1", ["f2", "f1"], "hyperedge")
+    assert s1 == s2
+
+    snap1 = build_snapshot_id("train-1", "ckpt-1", "fs:test", "cand-1")
+    snap2 = build_snapshot_id("train-1", "ckpt-1", "fs:test", "cand-1")
+    assert snap1 == snap2

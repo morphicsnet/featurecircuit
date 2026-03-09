@@ -67,3 +67,33 @@ def candidate_id(
         "arity": int(arity),
     }
     return f"c_{_sha256(payload)[:16]}"
+
+
+def structure_id(
+    structure_builder_type: str,
+    structure_builder_version: str,
+    members: Iterable[str],
+    structure_type: str,
+) -> str:
+    payload = {
+        "structure_builder_type": structure_builder_type,
+        "structure_builder_version": structure_builder_version,
+        "members": sorted(str(m) for m in members),
+        "structure_type": structure_type,
+    }
+    return f"s_{_sha256(payload)[:16]}"
+
+
+def snapshot_id(
+    training_run_id: str,
+    checkpoint_id: str,
+    feature_space_id: str,
+    candidate_set_id: str,
+) -> str:
+    payload = {
+        "training_run_id": training_run_id,
+        "checkpoint_id": checkpoint_id,
+        "feature_space_id": feature_space_id,
+        "candidate_set_id": candidate_set_id,
+    }
+    return f"snap_{_sha256(payload)[:16]}"

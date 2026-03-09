@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from featurecircuit_protocol.ids import candidate_id, feature_id, relation_id
+from featurecircuit_protocol.ids import candidate_id, feature_id, relation_id, snapshot_id, structure_id
 
 
 def test_feature_id_deterministic() -> None:
@@ -49,3 +49,19 @@ def test_candidate_id_deterministic_sorted_members() -> None:
     c3 = candidate_id("hypergraph", "v1", ["f1", "f3"], "hyperedge", 2)
     assert c1 == c2
     assert c1 != c3
+
+
+def test_structure_id_deterministic_sorted_members() -> None:
+    s1 = structure_id("hypergraph", "v1", ["f2", "f1"], "hyperedge")
+    s2 = structure_id("hypergraph", "v1", ["f1", "f2"], "hyperedge")
+    s3 = structure_id("hypergraph", "v1", ["f1", "f3"], "hyperedge")
+    assert s1 == s2
+    assert s1 != s3
+
+
+def test_snapshot_id_deterministic() -> None:
+    a = snapshot_id("train-1", "ckpt-1", "fs-1", "cand-1")
+    b = snapshot_id("train-1", "ckpt-1", "fs-1", "cand-1")
+    c = snapshot_id("train-1", "ckpt-2", "fs-1", "cand-1")
+    assert a == b
+    assert a != c

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "circuit_snapshot.v1.json",
+  "title": "CircuitSnapshotArtifact",
+  "type": "object",
+  "required": [
+    "schema_name",
+    "schema_version",
+    "snapshot_id",
+    "run_id",
+    "training_run_id",
+    "checkpoint_id",
+    "feature_space_id",
+    "relation_artifact_id",
+    "structure_artifact_id",
+    "candidate_set_id",
+    "candidate_ids",
+    "summary"
+  ],
+  "properties": {
+    "schema_name": { "const": "circuit_snapshot.v1" },
+    "schema_version": { "type": "integer", "const": 1 },
+    "snapshot_id": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "training_run_id": { "type": "string", "minLength": 1 },
+    "checkpoint_id": { "type": "string", "minLength": 1 },
+    "feature_space_id": { "type": "string", "minLength": 1 },
+    "relation_artifact_id": { "type": "string", "minLength": 1 },
+    "structure_artifact_id": { "type": "string", "minLength": 1 },
+    "candidate_set_id": { "type": "string", "minLength": 1 },
+    "candidate_ids": { "type": "array", "items": { "type": "string" } },
+    "summary": { "type": "object" },
+    "parent_snapshot_id": { "type": "string", "minLength": 1 },
+    "metadata": { "type": "object" }
+  },
+  "additionalProperties": false
+}

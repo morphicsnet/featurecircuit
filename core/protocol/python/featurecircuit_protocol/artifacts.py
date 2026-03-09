@@ -5,6 +5,31 @@ from typing import Any
 
 
 @dataclass
+class ActivationBatch:
+    activation_batch_id: str
+    run_id: str
+    training_run_id: str
+    checkpoint_id: str
+    batch_id: str
+    model_id: str
+    model_revision: str
+    tokenizer_id: str
+    layer_targets: list[int]
+    activation_kind: str
+    shape_summary: dict[str, Any]
+    dtype: str
+    device: str
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema_name": "activation_batch.v1",
+            "schema_version": 1,
+            **asdict(self),
+        }
+
+
+@dataclass
 class FeatureSpaceDescriptor:
     feature_space_id: str
     feature_space_type: str
@@ -55,6 +80,7 @@ class FeatureEvent:
     label: str | None = None
     capability_tag: str | None = None
     safety_tag: str | None = None
+    metadata: dict[str, Any] | None = None
 
     def to_dict(self) -> dict[str, Any]:
         out = {
@@ -92,6 +118,7 @@ class RelationArtifact:
     relation_builder_version: str
     feature_space_id: str
     relations: list[dict[str, Any]]
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -102,6 +129,7 @@ class RelationArtifact:
             "relation_builder_version": self.relation_builder_version,
             "feature_space_id": self.feature_space_id,
             "relations": self.relations,
+            "metadata": self.metadata,
         }
 
 
@@ -111,6 +139,7 @@ class StructureArtifact:
     structure_builder_type: str
     structure_builder_version: str
     structures: list[dict[str, Any]]
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -120,6 +149,7 @@ class StructureArtifact:
             "structure_builder_type": self.structure_builder_type,
             "structure_builder_version": self.structure_builder_version,
             "structures": self.structures,
+            "metadata": self.metadata,
         }
 
 
@@ -127,6 +157,7 @@ class StructureArtifact:
 class CandidateSetArtifact:
     run_id: str
     candidates: list[dict[str, Any]]
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -134,13 +165,39 @@ class CandidateSetArtifact:
             "schema_version": 1,
             "run_id": self.run_id,
             "candidates": self.candidates,
+            "metadata": self.metadata,
         }
+
+
+@dataclass
+class CircuitSnapshotArtifact:
+    snapshot_id: str
+    run_id: str
+    training_run_id: str
+    checkpoint_id: str
+    feature_space_id: str
+    relation_artifact_id: str
+    structure_artifact_id: str
+    candidate_set_id: str
+    candidate_ids: list[str]
+    summary: dict[str, Any]
+    parent_snapshot_id: str | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        out = {
+            "schema_name": "circuit_snapshot.v1",
+            "schema_version": 1,
+            **asdict(self),
+        }
+        return {k: v for k, v in out.items() if v is not None}
 
 
 @dataclass
 class ScoreBundleArtifact:
     run_id: str
     scores: list[dict[str, Any]]
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -148,6 +205,7 @@ class ScoreBundleArtifact:
             "schema_version": 1,
             "run_id": self.run_id,
             "scores": self.scores,
+            "metadata": self.metadata,
         }
 
 
@@ -160,6 +218,12 @@ class ProtocolManifest:
     compat_mode_enabled: bool
     hif_export_mode: str
     run_config_checksum: str
+    export_profiles: list[str]
+    lineage: dict[str, Any]
+    model_info: dict[str, Any] = field(default_factory=dict)
+    feature_space_descriptors: list[str] = field(default_factory=list)
+    relation_builders: list[str] = field(default_factory=list)
+    structure_builders: list[str] = field(default_factory=list)
     metadata: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

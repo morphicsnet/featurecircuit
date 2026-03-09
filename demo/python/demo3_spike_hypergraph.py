@@ -30,6 +30,7 @@ from python.repro.protocol_manifest import (  # noqa: E402
     build_feature_key,
     build_member_key,
     build_relation_id,
+    build_structure_id,
     write_feature_events,
     write_feature_space,
     write_hif_exports,
@@ -278,7 +279,12 @@ def main(config_path: str = "configs/demo3_spike_hypergraph.yaml") -> None:
         support_count = int(edge_counts.get(ek, 0))
         structures.append(
             {
-                "structure_id": f"struct_{idx}",
+                "structure_id": build_structure_id(
+                    structure_builder_type="temporal_hypergraph",
+                    structure_builder_version="v1",
+                    members=members,
+                    structure_type="hyperedge",
+                ),
                 "structure_type": "hyperedge",
                 "members": members,
                 "arity": len(members),

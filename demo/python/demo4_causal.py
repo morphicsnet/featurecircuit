@@ -27,6 +27,9 @@ from python.repro.protocol_manifest import (  # noqa: E402
     build_feature_key,
     build_member_key,
     build_relation_id,
+    build_snapshot_id,
+    build_structure_id,
+    write_circuit_snapshot,
     write_candidates,
     write_feature_events,
     write_feature_space,
@@ -238,6 +241,30 @@ def main(config_path: str = "configs/demo4_causal.yaml") -> None:
                 "scores": [],
             },
         )
+        candidate_set_id = f"{run_id}:candidate_set"
+        snapshot_id = build_snapshot_id(
+            training_run_id=run_id,
+            checkpoint_id="checkpoint-unknown",
+            feature_space_id="demo4.hyperedge_space",
+            candidate_set_id=candidate_set_id,
+        )
+        write_circuit_snapshot(
+            run_dir,
+            {
+                "schema_name": "circuit_snapshot.v1",
+                "schema_version": 1,
+                "snapshot_id": snapshot_id,
+                "run_id": run_id,
+                "training_run_id": run_id,
+                "checkpoint_id": "checkpoint-unknown",
+                "feature_space_id": "demo4.hyperedge_space",
+                "relation_artifact_id": f"{run_id}:relations",
+                "structure_artifact_id": f"{run_id}:structures",
+                "candidate_set_id": candidate_set_id,
+                "candidate_ids": [],
+                "summary": {"note": "no candidate edges"},
+            },
+        )
         write_feature_events(run_dir, [])
         write_protocol_manifest(
             run_dir=run_dir,
@@ -354,7 +381,12 @@ def main(config_path: str = "configs/demo4_causal.yaml") -> None:
         stii_val = float(stii_values.get(ek, 0.0))
         structures.append(
             {
-                "structure_id": f"struct_{idx}",
+                "structure_id": build_structure_id(
+                    structure_builder_type="temporal_hypergraph",
+                    structure_builder_version="v1",
+                    members=members,
+                    structure_type="hyperedge",
+                ),
                 "structure_type": "hyperedge",
                 "members": members,
                 "arity": len(members),
@@ -480,6 +512,34 @@ def main(config_path: str = "configs/demo4_causal.yaml") -> None:
             "schema_version": 1,
             "run_id": run_id,
             "scores": score_rows,
+        },
+    )
+    candidate_set_id = f"{run_id}:candidate_set"
+    snapshot_id = build_snapshot_id(
+        training_run_id=run_id,
+        checkpoint_id="checkpoint-unknown",
+        feature_space_id=feature_space_id,
+        candidate_set_id=candidate_set_id,
+    )
+    write_circuit_snapshot(
+        run_dir,
+        {
+            "schema_name": "circuit_snapshot.v1",
+            "schema_version": 1,
+            "snapshot_id": snapshot_id,
+            "run_id": run_id,
+            "training_run_id": run_id,
+            "checkpoint_id": "checkpoint-unknown",
+            "feature_space_id": feature_space_id,
+            "relation_artifact_id": f"{run_id}:relations",
+            "structure_artifact_id": f"{run_id}:structures",
+            "candidate_set_id": candidate_set_id,
+            "candidate_ids": [c["candidate_id"] for c in candidate_rows],
+            "summary": {
+                "kept_edges": len(candidate_rows),
+                "base_acc": float(acdc_ser.get("base_acc", 0.0)),
+                "final_acc": float(acdc_ser.get("final_acc", 0.0)),
+            },
         },
     )
     event_rows: List[Dict[str, Any]] = []

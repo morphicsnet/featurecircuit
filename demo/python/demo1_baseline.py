@@ -24,7 +24,7 @@ from python.metrics.polysemanticity import (  # noqa: E402
 )
 from python.plots.hist import plot_histogram  # noqa: E402
 from python.utils.artifacts import create_run_dir, dump_json, dump_yaml  # noqa: E402
-from python.repro.protocol_manifest import write_feature_space, write_protocol_manifest  # noqa: E402
+from python.repro.protocol_manifest import write_activation_batch, write_feature_space, write_protocol_manifest  # noqa: E402
 
 
 def _seed_all(seed: int) -> None:
@@ -93,6 +93,7 @@ def main(config_path: str = "configs/demo1_baseline.yaml") -> None:
     base_dir = out_cfg["base_dir"]
     run_tag = out_cfg.get("run_tag", None)
     run_dir = create_run_dir(base_dir=base_dir, run_tag=run_tag)
+    run_id = os.path.basename(os.path.abspath(run_dir))
 
     # Save arrays and metrics/configs
     np.save(os.path.join(run_dir, "probs.npy"), prob)
@@ -138,6 +139,27 @@ def main(config_path: str = "configs/demo1_baseline.yaml") -> None:
             "activation_rule": "topk",
             "checksum": f"{input_dim}:{hidden_dim}:{top_k}:{int(sae_cfg.get('seed', 42))}",
             "metadata": {"top_k": top_k, "l1_lambda": l1_lambda},
+        },
+    )
+    write_activation_batch(
+        run_dir,
+        {
+            "schema_name": "activation_batch.v1",
+            "schema_version": 1,
+            "activation_batch_id": f"{run_id}:activation_batch",
+            "run_id": run_id,
+            "training_run_id": run_id,
+            "checkpoint_id": "checkpoint-unknown",
+            "batch_id": "batch-0",
+            "model_id": model_name,
+            "model_revision": "unknown",
+            "tokenizer_id": model_name,
+            "layer_targets": [int(layer_index)],
+            "activation_kind": "residual",
+            "shape_summary": {"num_samples": int(acts.shape[0]), "hidden_dim": int(acts.shape[1])},
+            "dtype": str(acts.dtype),
+            "device": "cpu",
+            "metadata": {"source_kind": "mock"},
         },
     )
 

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "activation_batch.v1.json",
+  "title": "ActivationBatch",
+  "type": "object",
+  "required": [
+    "schema_name",
+    "schema_version",
+    "activation_batch_id",
+    "run_id",
+    "training_run_id",
+    "checkpoint_id",
+    "batch_id",
+    "model_id",
+    "model_revision",
+    "tokenizer_id",
+    "layer_targets",
+    "activation_kind",
+    "shape_summary",
+    "dtype",
+    "device"
+  ],
+  "properties": {
+    "schema_name": { "const": "activation_batch.v1" },
+    "schema_version": { "type": "integer", "const": 1 },
+    "activation_batch_id": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "training_run_id": { "type": "string", "minLength": 1 },
+    "checkpoint_id": { "type": "string", "minLength": 1 },
+    "batch_id": { "type": "string", "minLength": 1 },
+    "model_id": { "type": "string", "minLength": 1 },
+    "model_revision": { "type": "string", "minLength": 1 },
+    "tokenizer_id": { "type": "string", "minLength": 1 },
+    "layer_targets": { "type": "array", "items": { "type": "integer" }, "minItems": 1 },
+    "activation_kind": { "type": "string", "minLength": 1 },
+    "shape_summary": { "type": "object", "minProperties": 1 },
+    "dtype": { "type": "string", "minLength": 1 },
+    "device": { "type": "string", "minLength": 1 },
+    "metadata": { "type": "object" }
+  },
+  "additionalProperties": false
+}
