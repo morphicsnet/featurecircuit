@@ -1,7 +1,13 @@
-# NSI Engine (Skeleton)
+# Legacy: superposition-solver1 nsi-engine
+> Historical mirror of the earlier engine/service scaffold from the pre-consolidation solver tree.
 
-This is a placeholder skeleton for the Rust core and service, plus contract surfaces (protobuf + JSON schemas).
-TODO: Populate with real implementations in later steps of the migration plan.
+## What it used to represent
+A runtime/service skeleton around the original solver architecture, before schemas, manifests, and boundaries were consolidated into featurecircuit.
 
-Canonical HIF: Until migration completes, the canonical HIF spec remains at ../docs/hif.md in the repository root.
-This skeleton seeds a copy at docs/hif.md for stewardship and will be formalized later.
+## Where to go now
+- Active satellite: [featurecircuit satellite nsi-engine](../../../satellites/nsi-engine/README.md)
+- Protocol and runtime boundary: [core README](../../../core/README.md)
+- Root guide: [featurecircuit](../../../README.md)
+
+## Status
+Frozen historical surface only.

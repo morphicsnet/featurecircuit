@@ -1,16 +1,29 @@
-# Core / Protocol Face
+# featurecircuit Core
+> Protocol contracts, stable identifiers, and public runtime primitives for the featurecircuit stack.
 
-`core/` contains the protocol contracts and public runtime primitives.
+The `core/` face owns the things other tools should be able to trust: schemas, deterministic IDs, public crate surfaces, and the canonical Python bindings.
 
-## Contents
-- `nsi_core/`: Rust core crate (kept as stable identifier in first release)
-- `py_nsi/`: Python bindings (canonical API) and `py_nsi.compat` shim
-- `protocol/`: versioned schemas and reference Python contract helpers
+## Fastest path
+```bash
+maturin develop --release -m core/py_nsi/Cargo.toml
+python -c "import py_nsi; print('py_nsi OK')"
+```
 
-## Public Surface
-Consumers should depend on:
+## What lives here
+- `nsi_core/`: Rust core crate and stable low-level runtime primitives
+- `py_nsi/`: canonical Python bindings plus the temporary compat shim
+- `protocol/`: schema files, ID rules, artifact contracts, and reference helpers
+
+## Public surface
+Depend on these surfaces:
 - `nsi_core` public crate APIs
 - `py_nsi` canonical classes
 - schema files under `core/protocol/schemas/`
+- protocol helpers under `core/protocol/python/featurecircuit_protocol/`
 
-Consumers should not depend on internal module paths inside core implementation files.
+Do not depend on internal module paths inside implementation files.
+
+## Go next
+- Root guide: [featurecircuit](../README.md)
+- Python bindings: [py_nsi README](py_nsi/README.md)
+- Repro corridor: [demo README](../demo/README.md)

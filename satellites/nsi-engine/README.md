@@ -1,7 +1,17 @@
-# NSI Engine (Skeleton)
+# featurecircuit Satellite: nsi-engine
+> Runtime/service companion skeleton kept outside the protocol core so the public contracts stay clean.
 
-This is a placeholder skeleton for the Rust core and service, plus contract surfaces (protobuf + JSON schemas).
-TODO: Populate with real implementations in later steps of the migration plan.
+## Current status
+- scaffold only for this release line
+- intended to host service or engine glue around the protocol outputs
+- constrained to public schemas and public runtime APIs
 
-Canonical HIF: Until migration completes, the canonical HIF spec remains at ../docs/hif.md in the repository root.
-This skeleton seeds a copy at docs/hif.md for stewardship and will be formalized later.
+## Use it for
+- integration planning
+- provider/service boundary experiments
+- understanding what belongs outside the protocol core
+
+## Go next
+- Satellite boundary: [satellites README](../README.md)
+- Canonical core: [core README](../../core/README.md)
+- Historical source: [legacy nsi-engine mirror](../../legacy/superposition-solver1/nsi-engine/README.md)
