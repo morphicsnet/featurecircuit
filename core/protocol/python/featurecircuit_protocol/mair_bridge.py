@@ -14,8 +14,8 @@ except Exception as exc:  # pragma: no cover - exercised in integration usage
 def _load_artifact(manifest_path: Path, artifact_type: str) -> dict[str, Any]:
     if load_manifest is None:
         raise RuntimeError(
-            "MAIR bridge requires the installed mair package. "
-            "Run python -m pip install -e '/Volumes/128/MAIR[dev]' -e '/Volumes/128/BLT[dev]'"
+            "MAIR bridge requires the installed mechlab-sdk runtime. "
+            "Run python -m pip install mechlab-sdk and ensure the bundled MAIR helpers are importable."
         ) from _IMPORT_ERROR
     manifest = load_manifest(manifest_path)
     artifact = next(item for item in manifest["artifacts"] if item["artifact_type"] == artifact_type)
